@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("desk.avif");
+    background-size: cover;
+    background-repeat: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.Calculator {
+    height: 500px;
+    width: 400px;
+    background-color: grey;
+    border: 2px solid black;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.screen {
+    background-color: black;
+    border: 3px solid green;
+    height: 100px;
+    width: 350px;
+    border-radius: 10px;
+    margin: 20px
+}
+
+.row {
+    display: flex;
+    gap: 25px;
+}
+
+/*buttons*/
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+button {
+    height: 65px;
+    width: 65px;
+    border: none;
+    background-color: ;
+    border-radius: 50%;
+    font-size: larger;
+}
+
+.zero {
+    width: 155px;
+    border-radius: 32.5px;
+}
+ 
+button:hover {
+    border: 2px solid black;
+}
