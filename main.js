@@ -1,147 +1,104 @@
-window.onload = (event) => {
-    displayScreen(text);
-}
 
-let text = 0;
-let var1 = 0;
-let storedData = 0;
-let operator = 0;
+let var1 = '';
+let var2 = '';
+let operating = '';
+let refresh = false;
 
-
-
-const digits = document.querySelector('.digits');
-
-const clear = document.querySelector('.clear');
-const sign = document.querySelector('.sign');
-const percent = document.querySelector('.percent');
-const divide = document.querySelector('.divide');
-const seven = document.querySelector('.seven');
-const eight = document.querySelector('.eight');
-const nine = document.querySelector('.nine');
-const times = document.querySelector('.times');
-const four = document.querySelector('.four');
-const five = document.querySelector('.five');
-const six = document.querySelector('.six');
-const subtract = document.querySelector('.subtract');
-const one = document.querySelector('.one');
-const two = document.querySelector('.two');
-const three = document.querySelector('.three');
-const add = document.querySelector('.add');
-const zero = document.querySelector('.zero');
-const decimal = document.querySelector('.decimal');
+const numButtons = document.querySelectorAll('[data-number]');
+const operators = document.querySelectorAll('[data-operator]')
+const display = document.querySelector('.digits');
 const equals = document.querySelector('.equals');
+const decimal = document.querySelector('.decimal');
+const clear = document.querySelector('.clear');
 
-clear.onclick = () => displayScreen('0');
+clear.onclick= () => calcWipe();
 
-zero.onclick = () => changeText(0);
-one.onclick = () => changeText(1);
-two.onclick = () => changeText(2);
-three.onclick = () => changeText(3);
-four.onclick = () => changeText(4);
-five.onclick = () => changeText(5);
-six.onclick = () => changeText(6);
-seven.onclick = () => changeText(7);
-eight.onclick = () => changeText(8);
-nine.onclick = () => changeText(9);
-
-add.onclick = () => calculate("add");
-subtract.onclick = () => calculate("subtract");
-times.onclick = () => calculate("times");
-divide.onclick = () => calculate("divide");
-equals.onclick = () => result();
-
-percent.onclick = () => operate(1);
-sign.onclick = () => operate(2);
+equals.onclick = () => finalement();
 
 
+numButtons.forEach((button) => 
+    button.addEventListener('click', () => appendNumber(button.textContent))
+)
 
-function displayScreen(info) {
-    digits.innerHTML = info;
-    text = info;
-    if (info == 0) {
-        storedData = 0;
-    }
+operators.forEach((operator) =>
+    operator.addEventListener('click', () => calculate(operator.textContent))
+)
+
+function calcWipe() {
+    display.textContent = '';
+    var1 = '';
+    var2 = '';
+    operating = '';
+    refresh = false;
 }
 
-function changeText(newNumber) {
-    if (text<10000000000) {
-        text = text*10;
-        text += newNumber;
-        displayScreen(text);
+function appendNumber (number) {
+    if (refresh) {
+        display.textContent = '';
+        display.textContent += number;
+        refresh = false;
     } else {
-        digits.innerHTML = 'You lose';
+        display.textContent += number;
     }
 }
 
-function calculate(code) {
-    if (storedData == 0) {
-        storedData = text;
-        text = 0;
-        operator = code;
-        return;
+function calculate (sign) {
+    if (operating == '') {
+        var1 = display.textContent;
+        console.log(display);
+        display.textContent = '';
+        operating = sign;
     } else {
-        if (operator === "add") {
-            storedData = text + storedData;
-            displayScreen(storedData);
-            text = 0;
-            operator = code;
-            return;
-        } else if (operator === "subtract") {
-            storedData = storedData - text;
-            displayScreen(storedData);
-            text = 0;
-            operator = code;
-            return;
-        } else if (operator === "times") {
-            storedData = storedData * text;
-            displayScreen(storedData);
-            text = 0;
-            operator = code;
-            return;
-        } else if (operator === "divide") {
-            storedData = storedData / text;
-            displayScreen(storedData);
-            text = 0;
-            operator = code;
-            return;
-        } 
+        var2 = display.textContent;
+        display.textContent = roundResult(evaluate(operating, var1, var2));
+        operating = sign;
+        var1 = display.textContent;
+        refresh = true;
     }
 }
 
-function operate(operand) {
-    if (operand == 1) {
-        text = text/100;
-        displayScreen(text);
-    } else {
-        text = text*-1;
-        displayScreen(text);
+function roundResult(number) {
+    return Math.round(number * 1000) / 1000
+  }
+
+function evaluate(sign, a, b) {
+    a = Number(a)
+    b = Number(b)
+    switch(sign) {
+        case '+':
+            return add(a, b);
+        case '-':
+            return subtract(a, b);
+        case 'X':
+            return multiply(a, b);
+        case '/':
+            return divide(a, b);
+        default:
+            return null;
     }
 }
 
-function result() {
-    if (operator === "add") {
-        text = storedData + text;
-        displayScreen(text);
-        storedData = text;
-        text = 0;
-        return;
-    }else if (operator === "subtract") {
-        text = storedData - text;
-        displayScreen(text);
-        storedData = text;
-        text = 0;
-        return;
-    }else if (operator === "times") {
-        text = storedData * text;
-        displayScreen(text);
-        storedData = text;
-        text = 0;
-        return;
-    }else if (operator === "divide") {
-        text = storedData / text;
-        displayScreen(text);
-        storedData = text;
-        text = 0;
-        return;
+function add (a, b) {
+    return a + b
+}
+
+function subtract (a, b) {
+    return a - b
+}
+
+function multiply (a, b) {
+    return a * b
+}
+
+function divide (a, b) {
+    return a / b
+}
+
+function finalement() {
+    if (var1 != '') {
+        var2 = display.textContent;
+        console.log(var1, var2);
+        display.textContent = roundResult(evaluate(operating, var1, var2));
+        operating = '';
     }
 }
