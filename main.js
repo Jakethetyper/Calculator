@@ -10,11 +10,18 @@ const display = document.querySelector('.digits');
 const equals = document.querySelector('.equals');
 const decimal = document.querySelector('.decimal');
 const clear = document.querySelector('.clear');
+const percent = document.querySelector('.percent');
+const sign = document.querySelector('.sign');
 
 clear.onclick= () => calcWipe();
 
 equals.onclick = () => finalement();
 
+percent.onclick = () => percantage();
+
+decimal.onclick = () => decimalize();
+
+sign.onclick = () => reverse();
 
 numButtons.forEach((button) => 
     button.addEventListener('click', () => appendNumber(button.textContent))
@@ -101,4 +108,16 @@ function finalement() {
         display.textContent = roundResult(evaluate(operating, var1, var2));
         operating = '';
     }
+}
+
+function percantage() {
+    display.textContent = display.textContent/100;
+}
+
+function decimalize() {
+    display.textContent += '.'
+}
+
+function reverse() {
+    display.textContent *= -1;
 }
