@@ -14,7 +14,7 @@ body {
 }
 
 .Calculator {
-    height: 500px;
+    height: 520px;
     width: 400px;
     background-color: grey;
     border: 2px solid black;
@@ -30,7 +30,20 @@ body {
     height: 100px;
     width: 350px;
     border-radius: 10px;
-    margin: 20px
+    margin: 20px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 10px;
+    padding-top: 10px;
+}
+
+.digits {
+    color: green;
+    font-size: 50px;
+    font-weight: 700;
+    text-align: right;
+    margin-top: 10px;
 }
 
 .row {
@@ -50,7 +63,7 @@ button {
     height: 65px;
     width: 65px;
     border: none;
-    background-color: ;
+    background-color: gainsboro;
     border-radius: 50%;
     font-size: larger;
 }
