@@ -122,25 +122,25 @@ function result() {
     if (operator === "add") {
         text = storedData + text;
         displayScreen(text);
-        storedData = 0;
+        storedData = text;
         text = 0;
         return;
     }else if (operator === "subtract") {
         text = storedData - text;
         displayScreen(text);
+        storedData = text;
         text = 0;
-        storedData = 0;
         return;
     }else if (operator === "times") {
         text = storedData * text;
         displayScreen(text);
-        storedData = 0;
+        storedData = text;
         text = 0;
         return;
     }else if (operator === "divide") {
         text = storedData / text;
         displayScreen(text);
-        storedData = 0;
+        storedData = text;
         text = 0;
         return;
     }
